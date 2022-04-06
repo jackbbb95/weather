@@ -1,6 +1,9 @@
 package me.bogle.weather.di
 
 import io.ktor.client.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.logging.*
+import io.ktor.http.*
 import me.bogle.weather.api.WeatherApi
 import me.bogle.weather.repository.WeatherRepository
 import org.koin.core.context.startKoin
@@ -21,5 +24,14 @@ val commonModule = module {
 }
 
 val networkModule = module {
-    single { HttpClient() }
+    single {
+        HttpClient {
+            install(JsonFeature) {
+                acceptContentTypes = acceptContentTypes + ContentType.Application.Json
+            }
+            install(Logging) {
+                level = LogLevel.BODY
+            }
+        }
+    }
 }
