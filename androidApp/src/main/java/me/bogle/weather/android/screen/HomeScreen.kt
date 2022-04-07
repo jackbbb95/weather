@@ -1,51 +1,34 @@
 package me.bogle.weather.android.screen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import me.bogle.weather.android.viewmodel.HomeState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import me.bogle.weather.android.viewmodel.HomeViewModel
+import me.bogle.weather.model.oneCallWeather.OneCallWeather
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
+    val state = viewModel.state.collectAsState().value
 
-    when (val state = viewModel.state) {
-        is HomeState.Initial ->
-            InitialState(getWeather = { viewModel.getWeather() })
-        is HomeState.Loading ->
-            LoadingState()
-        is HomeState.DisplayingWeather ->
-            DisplayingWeatherState(state)
+    LaunchedEffect(Unit) { viewModel.getWeather() }
+
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing = state.isLoading),
+        onRefresh = { viewModel.getWeather() }
+    ) {
+        state.data?.let { WeatherContent(it) }
     }
 }
 
 @Composable
-fun InitialState(getWeather: () -> Unit) {
-    Column {
-        Text(text = "Home Screen!")
-        Button(onClick = getWeather) {
-            Text("Testing!")
-        }
-    }
-}
-
-@Composable
-fun LoadingState() {
-    Box {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-fun DisplayingWeatherState(state: HomeState.DisplayingWeather) {
+private fun WeatherContent(data: OneCallWeather) {
     LazyColumn {
         item {
-            Text(text = "Home Screen!")
-            Text(text = state.currentText)
+            Text(text = data.toString())
         }
     }
 }

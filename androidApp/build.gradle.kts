@@ -47,4 +47,5 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.4.1")
 
     implementation("io.insert-koin:koin-android:3.2.0-beta-1")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.6-alpha")
 }
