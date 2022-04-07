@@ -1,12 +1,12 @@
-package me.bogle.weather.model
+package me.bogle.weather.api.response.oneCallWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Minutely(
+data class MinutelyWeatherResponse(
     @SerialName("dt")
-    val dt: Int? = null,
+    val dt: Long,
     @SerialName("precipitation")
-    val precipitation: Int? = null
+    val precipitation: Double? = null
 )

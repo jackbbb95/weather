@@ -9,22 +9,32 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import me.bogle.weather.repository.WeatherRepository
+import kotlinx.coroutines.flow.onStart
+import me.bogle.weather.usecase.GetCurrentLocationOneCallWeatherUseCase
 
-class HomeViewModel(private val weatherRepository: WeatherRepository) : ViewModel() {
+class HomeViewModel(
+    private val getCurrentLocationOneCallWeather: GetCurrentLocationOneCallWeatherUseCase
+) : ViewModel() {
 
-    var state by mutableStateOf(HomeState())
+    var state by mutableStateOf<HomeState>(HomeState.Initial)
         private set
 
     fun getWeather() {
-        // TODO Create Usecase
-        weatherRepository.getOneCallWeather(41.93244465716667, -71.31315381766628)
+        getCurrentLocationOneCallWeather()
             .flowOn(Dispatchers.IO)
-            .onEach { state = HomeState(currentText = it) }
+            .onStart { state = HomeState.Loading }
+            .onEach { state = HomeState.DisplayingWeather(currentText = it.toString()) }
             .flowOn(Dispatchers.Main)
             .launchIn(viewModelScope)
     }
 }
 
 
-data class HomeState(val currentText: String = "N/A")
+sealed class HomeState {
+
+    object Initial : HomeState()
+
+    object Loading : HomeState()
+
+    data class DisplayingWeather(val currentText: String) : HomeState()
+}

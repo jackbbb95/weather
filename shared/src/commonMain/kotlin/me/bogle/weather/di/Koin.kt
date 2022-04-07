@@ -5,22 +5,24 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
 import io.ktor.http.*
 import me.bogle.weather.api.WeatherApi
+import me.bogle.weather.mapper.OneCallWeatherMapper
 import me.bogle.weather.repository.WeatherRepository
+import me.bogle.weather.usecase.GetCurrentLocationOneCallWeatherUseCase
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
-    modules(commonModule, networkModule)
+    modules(commonModule, networkModule, usecaseModule, mapperModule)
 }
 
 // called by iOS etc
 fun initKoin() = initKoin { }
 
 val commonModule = module {
-    single { WeatherRepository() }
-    single { WeatherApi() }
+    single { WeatherRepository(get(), get()) }
+    single { WeatherApi(get()) }
 }
 
 val networkModule = module {
@@ -34,4 +36,12 @@ val networkModule = module {
             }
         }
     }
+}
+
+val usecaseModule = module {
+    single { GetCurrentLocationOneCallWeatherUseCase(get()) }
+}
+
+val mapperModule = module {
+    single { OneCallWeatherMapper() }
 }

@@ -1,22 +1,22 @@
-package me.bogle.weather.model
+package me.bogle.weather.api.response.oneCallWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OneCall(
+data class OneCallWeatherResponse(
     @SerialName("current")
-    val current: Current? = null,
+    val current: CurrentWeatherResponse,
     @SerialName("daily")
-    val daily: List<Daily>? = null,
+    val daily: List<DailyWeatherResponse>,
     @SerialName("hourly")
-    val hourly: List<Hourly>? = null,
+    val hourly: List<HourlyWeatherResponse>,
+    @SerialName("minutely")
+    val minutely: List<MinutelyWeatherResponse>,
     @SerialName("lat")
     val lat: Double? = null,
     @SerialName("lon")
     val lon: Double? = null,
-    @SerialName("minutely")
-    val minutely: List<Minutely>? = null,
     @SerialName("timezone")
     val timezone: String? = null,
     @SerialName("timezone_offset")
