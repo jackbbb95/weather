@@ -17,7 +17,11 @@ import me.bogle.weather.model.oneCallWeather.OneCallWeather
 fun HomeScreen(viewModel: HomeViewModel) {
     val state = viewModel.state.collectAsState().value
 
-    LaunchedEffect(Unit) { viewModel.getWeather() }
+    LaunchedEffect(Unit) {
+        if (state.data == null) {
+            viewModel.getWeather()
+        }
+    }
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = state.isLoading),
