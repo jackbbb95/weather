@@ -44,8 +44,16 @@ dependencies {
     implementation("androidx.compose.material:material:1.1.1")
     implementation("androidx.compose.animation:animation:1.1.1")
     implementation("androidx.compose.ui:ui-tooling:1.1.1")
-    implementation("androidx.navigation:navigation-compose:2.4.1")
+    implementation("androidx.navigation:navigation-compose:2.4.2")
 
     implementation("io.insert-koin:koin-android:3.2.0-beta-1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.6-alpha")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf(
+            "-opt-in=kotlin.RequiresOptIn"
+        )
+    }
 }

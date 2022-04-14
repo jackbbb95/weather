@@ -7,7 +7,8 @@ import io.ktor.http.*
 import me.bogle.weather.api.WeatherApi
 import me.bogle.weather.mapper.OneCallWeatherMapper
 import me.bogle.weather.repository.WeatherRepository
-import me.bogle.weather.usecase.GetCurrentLocationOneCallWeatherUseCase
+import me.bogle.weather.usecase.GetCurrentLocationCoordinatesUseCase
+import me.bogle.weather.usecase.GetOneCallWeatherUseCase
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
@@ -39,7 +40,8 @@ val networkModule = module {
 }
 
 val usecaseModule = module {
-    single { GetCurrentLocationOneCallWeatherUseCase(get()) }
+    single { GetCurrentLocationCoordinatesUseCase() }
+    single { GetOneCallWeatherUseCase(get()) }
 }
 
 val mapperModule = module {

@@ -3,8 +3,6 @@ package me.bogle.weather.android
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     private fun MainView() {
         val navController = rememberNavController()
         val homeViewModel by viewModel<HomeViewModel>()
-        
+
         Scaffold(
             bottomBar = {
                 BottomNavigation {
@@ -89,7 +87,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
 
         val HOME_NAV_SCREEN = NavScreen(route = "home", text = "Home", icon = Icons.Filled.Home)
-        val SETTINGS_NAV_SCREEN = NavScreen(route = "settings", text = "Settings", icon = Icons.Filled.Settings)
+        val SETTINGS_NAV_SCREEN =
+            NavScreen(route = "settings", text = "Settings", icon = Icons.Filled.Settings)
 
         val NAV_SCREENS = listOf(HOME_NAV_SCREEN, SETTINGS_NAV_SCREEN)
     }

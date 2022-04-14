@@ -2,7 +2,6 @@ package me.bogle.weather.android.screen
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,13 +18,13 @@ fun HomeScreen(viewModel: HomeViewModel) {
 
     LaunchedEffect(Unit) {
         if (state.data == null) {
-            viewModel.getWeather()
+            viewModel.loadInitialWeather()
         }
     }
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = state.isLoading),
-        onRefresh = { viewModel.getWeather() }
+        onRefresh = { viewModel.refreshWeather() }
     ) {
         state.data?.let { WeatherContent(it) }
     }
