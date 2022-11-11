@@ -33,7 +33,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
 @Composable
 private fun WeatherContent(data: OneCallWeather) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        // TODO Add header to find location
+        item {
+            
+        }
 
         item {
             CurrentWeatherContent(data.current)

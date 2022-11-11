@@ -3,7 +3,7 @@ package me.bogle.weather.api
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import me.bogle.weather.api.response.oneCallWeather.OneCallWeatherResponse
+import me.bogle.weather.api.response.weather.oneCallWeather.OneCallWeatherResponse
 import me.bogle.weather.model.TemperatureUnitType
 import me.bogle.weather.shared.BuildKonfig
 import org.koin.core.component.KoinComponent

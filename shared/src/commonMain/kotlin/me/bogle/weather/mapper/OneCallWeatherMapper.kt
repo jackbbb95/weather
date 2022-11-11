@@ -3,7 +3,7 @@ package me.bogle.weather.mapper
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import me.bogle.weather.api.response.oneCallWeather.*
+import me.bogle.weather.api.response.weather.oneCallWeather.*
 import me.bogle.weather.model.oneCallWeather.*
 
 class OneCallWeatherMapper : Mapper<OneCallWeatherResponse, OneCallWeather> {

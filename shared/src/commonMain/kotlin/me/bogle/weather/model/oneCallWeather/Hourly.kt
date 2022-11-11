@@ -1,7 +1,6 @@
 package me.bogle.weather.model.oneCallWeather
 
 import kotlinx.datetime.LocalDateTime
-import me.bogle.weather.api.response.oneCallWeather.WeatherResponse
 
 data class Hourly(
     val dateTime: LocalDateTime,

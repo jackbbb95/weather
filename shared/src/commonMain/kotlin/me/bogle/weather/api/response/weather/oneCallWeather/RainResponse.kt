@@ -1,4 +1,4 @@
-package me.bogle.weather.api.response.oneCallWeather
+package me.bogle.weather.api.response.weather.oneCallWeather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

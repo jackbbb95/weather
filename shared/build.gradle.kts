@@ -96,5 +96,11 @@ buildkonfig {
             "OPEN_WEATHER_MAP_API_KEY",
             project.properties["OpenWeatherMapApiKey"] as String
         )
+
+        buildConfigField(
+            STRING,
+            "GOOGLE_PLACES_API_KEY",
+            project.properties["GooglePlacesApiKey"] as String
+        )
     }
 }
